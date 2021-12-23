@@ -1,4 +1,4 @@
-package com.cs.qrcode;
+package com.cs.qrcode.db;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -15,15 +15,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class dbproperty {
-    public static String executeQuery(String property_id) {
+public class dbcheck {
+    public static String executeQuery() {
         String result = ""; 
        
         try {   
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("https://test.chansing.com.tw/dbproperty.php");
+            HttpPost httpPost = new HttpPost("https://property.chansing.com.tw/dbcheck.php");
             ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("property_id", property_id));
+           // params.add(new BasicNameValuePair("property_id", property_id));
 
              httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
             // httpPost.setEntity(new UrlEncodedFormEntity(params, "utf-8"));

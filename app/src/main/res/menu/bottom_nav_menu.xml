@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:textSize="12sp"
+        android:id="@+id/location"
+        android:title="掃描" />
+    <item
+        android:textSize="12sp"
+        android:id="@+id/path"
+        android:title="未查項目" />
+    <item
+        android:textSize="12sp"
+        android:id="@+id/video"
+        android:title="歷史項目" />
+    <item
+        android:textSize="12sp"
+        android:id="@+id/stamp"
+        android:title="登出" />
+    <!--
+    <item
+        android:textSize="12sp"
+        android:id="@+id/reply"
+        android:icon="@drawable/stamp"
+        android:title="意見" />
+
+-->
+
+</menu>

@@ -9,6 +9,7 @@ import android.os.StrictMode;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -16,10 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cs.qrcode.db.dbproperty;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -63,6 +66,8 @@ public class Qrcode extends AppCompatActivity {
         showdb=(TextView)findViewById(R.id.showdb);
         show.setOnClickListener(showclick);
         getPermission();
+        getnavbottom();
+
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE).build();
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
@@ -193,12 +198,13 @@ public class Qrcode extends AppCompatActivity {
                 JSONObject jsonData = jsonArray.getJSONObject(i);
 
                 String sdate=jsonData.getString("sdate");
-                String name=jsonData.getString("name");
+                String property=jsonData.getString("property");
                 String content=jsonData.getString("content");
                 String year=jsonData.getString("year");
                 String num=jsonData.getString("num");
                 String unit=jsonData.getString("unit");
-                showdb.setText("建立日期:"+sdate+" \n財產名稱: "+name+" \n內容: "+content+" \n年度: "+year+" \n數量: "+num+" "+unit);
+                String position=jsonData.getString("position");
+                showdb.setText("建立日期:"+sdate+" \n產財名稱: "+property+" \n內容: "+content+" \n年度: "+year+" \n數量: "+num+" "+unit+" \n備註: "+position);
             }
 
         }
@@ -248,6 +254,35 @@ public class Qrcode extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},1);
 
         }
+    }
+    public void getnavbottom(){
+        BottomNavigationView nav_view=(BottomNavigationView)findViewById(R.id.nav_view);
+        nav_view.setSelectedItemId(R.id.location);
+        nav_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.location:
+                        startActivity(new Intent(getApplicationContext(),Qrcode.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.path:
+                        startActivity(new Intent(getApplicationContext(),Uncheck.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.video:
+                        startActivity(new Intent(getApplicationContext(),Checked.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.stamp:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                }
+                return false;
+            }
+        });
     }
     private void mytoast(String str)
     {
