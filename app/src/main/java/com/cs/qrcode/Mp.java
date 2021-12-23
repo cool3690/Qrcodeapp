@@ -12,7 +12,7 @@ class Mp  {
 
 
     public Mp() {
- 
+
         map.put("A1","人資課");
         map.put("A2","會計課");
         map.put("A3","總務課");
