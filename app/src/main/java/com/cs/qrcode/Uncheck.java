@@ -1,6 +1,7 @@
 package com.cs.qrcode;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -38,7 +39,7 @@ public class Uncheck extends AppCompatActivity {
         setContentView(R.layout.uncheck);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        toolbar.setTitleTextColor(Color.BLACK);
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads()
                 .detectDiskWrites()

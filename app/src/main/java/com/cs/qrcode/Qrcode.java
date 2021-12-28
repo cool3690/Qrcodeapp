@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -38,9 +39,10 @@ import androidx.core.app.ActivityCompat;
 
 public class Qrcode extends AppCompatActivity {
     Toolbar toolbar;
-    ImageView toback;
+    //ImageView toback;
+    Mp mp=new Mp();
     SurfaceView surfaceView;
-    TextView show,showdb;
+    TextView show;
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
     @Override
@@ -58,12 +60,15 @@ public class Qrcode extends AppCompatActivity {
                 .penaltyLog()
                 .penaltyDeath()
                 .build());
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(Color.BLACK);
 
       //  toback=(ImageView)findViewById(R.id.toback);
        // toback.setOnClickListener(backbtn);
         surfaceView=(SurfaceView)findViewById(R.id.surfaceView);
         show=(TextView)findViewById(R.id.show);
-        showdb=(TextView)findViewById(R.id.showdb);
+
         show.setOnClickListener(showclick);
         getPermission();
         getnavbottom();
@@ -133,26 +138,12 @@ public class Qrcode extends AppCompatActivity {
                             try {
                                 if(!TextUtils.isEmpty(show.getText().toString())){
                                     if(show.getText().toString().equals("產編:"+qrCodes.valueAt(0).displayValue)){
-                                        //mytoast( qrCodes.size()+"");
 
-                                        //show.setText("");
                                     }
                                     else{
                                         show.setText("產編:"+qrCodes.valueAt(0).displayValue);
                                         pre(qrCodes.valueAt(0).displayValue);
-                                        /*
 
-                                        String word[]=qrCodes.valueAt(0).displayValue.split("_");
-                                        Intent intent=new Intent();//com.nihon.aki2.Listening
-                                        intent.setClass(Qrcode.this,Class.forName(word[0]));
-                                        Bundle bundle=new Bundle();
-                                        bundle.putString("ANS", word[1]);
-                                        bundle.putString("L", word[2]+"");
-                                        bundle.putString("T", word[3]+"");
-                                        intent.putExtras(bundle);
-                                        startActivity(intent);
-
-                                         */
                                     }
                                 }
                                 else{
@@ -199,12 +190,22 @@ public class Qrcode extends AppCompatActivity {
 
                 String sdate=jsonData.getString("sdate");
                 String property=jsonData.getString("property");
+                String property_id=jsonData.getString("property_id");
                 String content=jsonData.getString("content");
                 String year=jsonData.getString("year");
                 String num=jsonData.getString("num");
                 String unit=jsonData.getString("unit");
                 String position=jsonData.getString("position");
-                showdb.setText("建立日期:"+sdate+" \n產財名稱: "+property+" \n內容: "+content+" \n年度: "+year+" \n數量: "+num+" "+unit+" \n備註: "+position);
+                Intent intent=new Intent();
+                intent.setClass(Qrcode.this, Notes.class);
+                Bundle bundle=new Bundle();
+                String strs="產編: "+property_id+" \n設備項目: "+property+" \n數量: "+num+" "+unit+" \n取得年度:"+year+" \n保管者:"+mp.search(property_id.substring(1,3))+" \n說明: "+content+" \n備註: "+position;
+                //String str="取得年度:"+sdate+" \n產財名稱: "+property+" \n內容: "+content+" \n年度: "+year+" \n數量: "+num+" "+unit+" \n備註: "+position;
+                bundle.putString("ANS",strs);
+                bundle.putString("PRO",property_id);
+                intent.putExtras(bundle);
+                startActivity(intent);
+             //   showdb.setText("建立日期:"+sdate+" \n產財名稱: "+property+" \n內容: "+content+" \n年度: "+year+" \n數量: "+num+" "+unit+" \n備註: "+position);
             }
 
         }
