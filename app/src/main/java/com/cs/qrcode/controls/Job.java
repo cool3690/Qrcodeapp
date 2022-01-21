@@ -5,13 +5,22 @@ package com.cs.qrcode.controls;
  */
 public class Job {
 
-    private  String name, c_id, date,department;
-    public Job(String name,String c_id,String date,String department)
+    private  String name, c_id, date,department,status;
+    public Job(String name,String c_id,String date,String department,String status)
     {
         this.setName(name);
         this.setC_id(c_id);
         this.setDate(date);
         this.setDepartment(department);
+        this.setStatus(status);
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getName() {

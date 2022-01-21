@@ -36,10 +36,12 @@ public class JobAdapter extends ArrayAdapter<Job> {
             TextView c_id = (TextView) v.findViewById(R.id.c_id);
             TextView date = (TextView) v.findViewById(R.id.date);
             TextView department = (TextView) v.findViewById(R.id.department);
+            TextView status = (TextView) v.findViewById(R.id.status);
             name.setText(String.valueOf(o.getName()));
             c_id.setText(String.valueOf(o.getC_id()));
             date.setText(String.valueOf(o.getDate()));
             department.setText(String.valueOf(o.getDepartment()));
+            status.setText(String.valueOf(o.getStatus()));
         }
         return v;
     }

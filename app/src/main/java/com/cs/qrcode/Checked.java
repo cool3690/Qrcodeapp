@@ -33,9 +33,12 @@ public class Checked extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checked);
+        /*
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.BLACK);
+
+         */
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads()
                 .detectDiskWrites()
@@ -84,13 +87,14 @@ public class Checked extends AppCompatActivity {
 
 
                     String property=jsonData.getString("property");
-
+                    String property_status=jsonData.getString("property_status");
+//property_status
                     String property_id=jsonData.getString("property_id");
                     String unit=jsonData.getString("unit");
                     String inventory_date=jsonData.getString("inventory_date");
                     String str=mp.search(property_id.substring(1,3));
                     // mytoast(str);
-                    Job job=new Job(property,property_id, inventory_date,str);
+                    Job job=new Job(property,property_id, inventory_date,str,mp.search_status(property_status));
                     jobs.add(job);
 
 

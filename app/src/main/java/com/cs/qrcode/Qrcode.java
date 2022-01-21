@@ -1,10 +1,16 @@
 package com.cs.qrcode;
 
 import android.Manifest;
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
 import android.graphics.Color;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -14,6 +20,7 @@ import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,16 +42,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-
+import android.hardware.Camera;
 
 public class Qrcode extends AppCompatActivity {
-    Toolbar toolbar;
+    private Camera camera = Camera.open();
+    private Camera.Parameters parameters;
     //ImageView toback;
     Mp mp=new Mp();
+    Toolbar toolbar;
     SurfaceView surfaceView;
     TextView show;
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
+    Button light;
+    //private Camera camera;
+    boolean tflight=false;
+    private static final int REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,19 +73,32 @@ public class Qrcode extends AppCompatActivity {
                 .penaltyLog()
                 .penaltyDeath()
                 .build());
-        Toolbar toolbar = findViewById(R.id.toolbar);
+         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         toolbar.setTitleTextColor(Color.BLACK);
 
       //  toback=(ImageView)findViewById(R.id.toback);
        // toback.setOnClickListener(backbtn);
         surfaceView=(SurfaceView)findViewById(R.id.surfaceView);
         show=(TextView)findViewById(R.id.show);
-
+         light=(Button)findViewById(R.id.light);
         show.setOnClickListener(showclick);
         getPermission();
         getnavbottom();
+         light.setOnClickListener(lightbtn);
+        light.setVisibility(View.GONE);
+         /////////
+        int readPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if(readPermission!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, REQUEST);
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, REQUEST);
+        }
 
+        ///////////
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE).build();
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
@@ -213,6 +239,23 @@ public class Qrcode extends AppCompatActivity {
         catch(Exception e){}
 
     }
+
+    private  Button.OnClickListener lightbtn=new Button.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+/*
+            mCamera = Camera.open();
+            parameters = mCamera.getParameters(); //取得Camera的參數
+            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            mCamera.setParameters(parameters);
+
+ */
+            camera.startPreview();
+            parameters = camera.getParameters();
+            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            camera.setParameters(parameters);
+        }
+    };
     private TextView.OnClickListener showclick=new TextView.OnClickListener(){
         @Override
         public void onClick(View view) {

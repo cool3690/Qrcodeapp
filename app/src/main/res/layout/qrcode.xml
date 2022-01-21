@@ -18,9 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#eee"
-            android:titleTextColor="#000"  />
-
+            android:titleTextColor="#000"  >
+        <Button
+            android:id="@+id/light"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="right|center_vertical"
+            android:text="閃光燈" />
+    </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"

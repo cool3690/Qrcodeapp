@@ -9,7 +9,7 @@ import java.util.HashMap;
 class Mp  {
 
     HashMap<String,String> map=new HashMap();
-
+    HashMap<String,String> status_map=new HashMap();
 
     public Mp() {
 
@@ -29,6 +29,9 @@ class Mp  {
         map.put("F2","設備維護課");
         map.put("F0","設備維護課");
         map.put("G1","人文企劃課");
+        status_map.put("1","良好");
+        status_map.put("2","遺失");
+        status_map.put("3","損壞");
     }
 
     public String search(String str) {
@@ -37,6 +40,11 @@ class Mp  {
         else
             return "0";
     }
-
+    public String search_status(String str) {
+        if(status_map.containsKey(str))
+            return status_map.get(str);
+        else
+            return "0";
+    }
 
 }
