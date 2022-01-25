@@ -7,6 +7,8 @@ android:layout_height="match_parent">
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
     <LinearLayout
@@ -23,7 +25,7 @@ android:layout_height="match_parent">
             android:layout_weight=".4"
             android:text="MEF120200103"
             android:layout_marginLeft="10dp"
-
+            android:textColor="#000"
             android:textSize="16sp" />
 
 
@@ -39,7 +41,8 @@ android:layout_height="match_parent">
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                android:text="商務投影機氣壓式布幕4K無線傳輸器"
+                android:textColor="#000"
+                android:text="商務投影機氣壓式布幕"
                 android:layout_marginLeft="10dp"
 
                 android:textSize="16sp" />
@@ -48,6 +51,7 @@ android:layout_height="match_parent">
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".15"
+                android:textColor="#000"
                 android:gravity="right"
                 android:text="1台"
 
@@ -60,6 +64,7 @@ android:layout_height="match_parent">
                 android:layout_weight=".3"
                 android:gravity="right"
                 android:layout_marginRight="10dp"
+                android:textColor="#000"
                 android:text="設備維護課"
 
 

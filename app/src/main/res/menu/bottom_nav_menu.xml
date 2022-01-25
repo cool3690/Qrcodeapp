@@ -4,24 +4,28 @@
     <item
         android:textSize="12sp"
         android:id="@+id/location"
+        android:icon="@drawable/qrcode"
         android:title="掃描" />
     <item
         android:textSize="12sp"
         android:id="@+id/path"
+        android:icon="@drawable/uncheck_item"
         android:title="未查項目" />
     <item
         android:textSize="12sp"
         android:id="@+id/video"
+        android:icon="@drawable/history"
         android:title="歷史項目" />
     <item
         android:textSize="12sp"
         android:id="@+id/stamp"
+        android:icon="@drawable/logout"
         android:title="登出" />
     <!--
     <item
         android:textSize="12sp"
         android:id="@+id/reply"
-        android:icon="@drawable/stamp"
+        android:icon="@drawable/history"
         android:title="意見" />
 
 -->

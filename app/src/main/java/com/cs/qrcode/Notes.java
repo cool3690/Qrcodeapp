@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,8 +42,10 @@ public class Notes extends AppCompatActivity {
     TextView showdb;
     ImageView toback;
     LinearLayout L1;
-    Button btG,btL,btB;
+    ImageView btG,btL,btB;
     String property_id="";
+    Context context;
+    Dialog dia;
     String myurl="https://property.chansing.com.tw/images/property/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +65,16 @@ public class Notes extends AppCompatActivity {
                 .build());
         showdb=(TextView)findViewById(R.id.showdb);
         img=(ImageView)findViewById(R.id.img);
-        toback=(ImageView)findViewById(R.id.toback);
+         toback=(ImageView)findViewById(R.id.toback);
         L1=(LinearLayout)findViewById(R.id.L1);
-        btG=(Button)findViewById(R.id.btG);
-        btL=(Button)findViewById(R.id.btL);
-        btB=(Button)findViewById(R.id.btB);
+        btG=(ImageView)findViewById(R.id.btG);
+        btL=(ImageView)findViewById(R.id.btL);
+        btB=(ImageView)findViewById(R.id.btB);
         L1.setVisibility(View.GONE);
         btG.setOnClickListener(checkbtn);
         btB.setOnClickListener(checkbtn);
         btL.setOnClickListener(checkbtn);
-        toback.setOnClickListener(backbtn);
+         toback.setOnClickListener(backbtn);
         Intent intent=this.getIntent();
         Bundle bundle=intent.getExtras();
         String str=bundle.getString("ANS");
@@ -97,7 +100,7 @@ public class Notes extends AppCompatActivity {
         new Notes.DownloadFileAsync().execute();
     }
 
-    private Button.OnClickListener checkbtn=new Button.OnClickListener(){
+    private ImageView.OnClickListener checkbtn=new ImageView.OnClickListener(){
         @Override
         public void onClick(View view) {
             String str="";
@@ -117,6 +120,7 @@ public class Notes extends AppCompatActivity {
             }
             ///
              dbupstatus.executeQuery(property_id,str);
+            /*
             new AlertDialog.Builder(Notes.this)
                     .setTitle("確認視窗")
 
@@ -136,8 +140,45 @@ public class Notes extends AppCompatActivity {
                         }
                     })
                     .show();
+*/
+       ///////////////
+            context = Notes.this;
+            dia = new Dialog(context, R.style.rightcopystyle);
+            dia.setContentView(R.layout.copyright);
+            Button btok=(Button)dia.findViewById(R.id.btok);
+            Button ret=(Button)dia.findViewById(R.id.ret);
+            dia.setCanceledOnTouchOutside(true); // Sets whether this dialog is
+            Window w = dia.getWindow();
+            WindowManager.LayoutParams lp = w.getAttributes();
+            lp.x = 0; // 新位置X坐標
+            lp.width =950; // 寬度
+            dia.show();
+            dia.onWindowAttributesChanged(lp);
+            btok.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dia.dismiss();
+                        }
+                    }
+            );
+            ret.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent=new Intent();
+                            intent.setClass(Notes.this, Qrcode.class);
+                            startActivity(intent);
+                        }
+                    }
+            );
 
+
+
+            /////////////
         }
+
+
 
     };
     class DownloadFileAsync extends AsyncTask<String, String, String> {
